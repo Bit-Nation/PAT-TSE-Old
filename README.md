@@ -1,5 +1,5 @@
 # Crowdsale
-You will find here the crowdsale contract used by the BITNATION team for their ICO.
+Here's the crowdsale contract used by the BITNATION team for our ICO.
 
 # Build
 You will need to install truffle
