@@ -1,4 +1,4 @@
-# PAT ERC20 Token
+# PAT ERC20 Compatible Token
 
 The Pangea Software is a Decentralized Opt-In Jurisdiction where Citizens can conduct peer-to-peer arbitration and create their own Sovereign Nations. Pangea is built with the decentralized Secure Scuttlebot (SSB) and Interplanetary File System (IPFS) technologies, forming a quantum resistant mesh network. Pangea is blockchain agnostic, using primarily the Ethereum and Bitcoin blockchains.
 
