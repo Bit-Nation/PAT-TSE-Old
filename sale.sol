@@ -26,7 +26,7 @@ contract sale {
     
     
     // Generates an ethernal sale
-    function sale(uint _minAmount, address _seller, uint _tokens, uint _tokensSetAside, token _rewardToken){
+    function sale(uint _minAmount, address _seller, uint _tokens, uint _tokensSetAside, token _rewardToken) {
         minAmount = _minAmount;
         crowdseller = _seller;
         totalTokens = _tokens;
@@ -69,10 +69,16 @@ contract sale {
     
     // a curve that generates how many tokens per seconds should be generated
     function sellTargetByDate(uint targetTime) constant returns (uint sellTarget) {
-       // can be any curve: example targets 1 M tokens per day forever
-       // TODO: set curve
-       // (Total amount of tokens - tokens set aside) * 0.1139 / (days of the sale)
-       return ((totalTokens - tokensSetAside) * 0.1139) / (targetTime * 1 days);
+        // get the amount of days elapsed
+        uint nb_days = targetTime * 1 days;
+       
+        if (nb_days <= 31) { // First month, we sell 140e6 tokens a day
+            return 140e6 * nb_days;
+        } else if (nb_days <= (25 * 31)) { // Next 24 months, 14e6 a day (25 because we include the first month ;))
+            return 14e6 * nb_days;
+        } else { // Time elapsed, only sell unsold tokens
+            return 14756000000; // 140e6 * 31 + 14e6 * 24 * 31
+        }
     }
     
     // anyone can call this, and it's also called at every put order
