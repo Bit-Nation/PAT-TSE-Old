@@ -71,13 +71,15 @@ contract sale {
     function sellTargetByDate(uint targetTime) constant returns (uint sellTarget) {
         // get the amount of days elapsed
         uint nb_days = (targetTime - saleStarted) * 1 days;
-       
-        if (nb_days <= 31) { // First month, we sell 140e6 tokens a day
-            return 140e6 * nb_days;
-        } else if (nb_days <= (25 * 31)) { // Next 24 months, 14e6 a day (25 because we include the first month ;))
-            return 14e6 * nb_days;
+        
+        if (nb_days <= 2) {
+            return 840e6; // 2%
+        } else if (nb_days <= 31) {
+            return 3.36e9; // 8%
+        } else if (nb_days <= (720)) { // Next 24 months (~720 days, 30*24), 14e6 a day
+            return 14e6 * nb_days + 3.36e9;
         } else { // Time elapsed, only sell unsold tokens
-            return 14756000000; // 140e6 * 31 + 14e6 * 24 * 31
+            return 14.28e9;
         }
     }
     
