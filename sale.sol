@@ -70,7 +70,7 @@ contract sale {
     // a curve that generates how many tokens per seconds should be generated
     function sellTargetByDate(uint targetTime) constant returns (uint sellTarget) {
         // get the amount of days elapsed
-        uint nb_days = targetTime * 1 days;
+        uint nb_days = (targetTime - saleStarted) * 1 days;
        
         if (nb_days <= 31) { // First month, we sell 140e6 tokens a day
             return 140e6 * nb_days;
