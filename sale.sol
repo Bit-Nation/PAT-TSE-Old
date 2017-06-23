@@ -13,9 +13,10 @@ contract sale {
     
     uint public highestPrice;
     uint public totalSold;
-    
+
+    uint public totalEth;
+
     uint public totalTokens;
-    uint public tokensSetAside;
     
     uint public minAmount;
     uint public saleStarted;
@@ -26,11 +27,10 @@ contract sale {
     
     
     // Generates an ethernal sale
-    function sale(uint _minAmount, address _seller, uint _tokens, uint _tokensSetAside, token _rewardToken) {
+    function sale(uint _minAmount, address _seller, uint _tokens, token _rewardToken) {
         minAmount = _minAmount;
         crowdseller = _seller;
         totalTokens = _tokens;
-        tokensSetAside = _tokensSetAside;
         rewardToken = token(_rewardToken);
         saleStarted = now;
     }
@@ -48,7 +48,7 @@ contract sale {
             order o = orderBook[currPrice];
             if (o.amount == 0 || currPrice < price - 100) seekPrice = false;
             currPrice--;
-        }
+       }
         // if still hasn't found, throw
         if (o.amount != 0) throw;
         // create a order
@@ -108,6 +108,7 @@ contract sale {
                 targetSale = 0;
                 crowdseller.transfer(valueToSend);
             }
+            totalEth += valueToSend;
             currPrice--;
         }
         highestPrice = currPrice;
