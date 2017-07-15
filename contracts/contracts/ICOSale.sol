@@ -26,7 +26,8 @@ contract ICOSale is Ownable {
   mapping (uint => mapping (address => bool)) public userClaimed;
 
   event Claimed(uint day, address backer, uint nbTokens);
-  event Collected(uint eth, uint unsoldTokens);
+  event CollectedUnsold(address collecter, uint unsoldTokens);
+  event CollectedEth(address collecter, uint ethAmount);
 
   function ICOSale(uint _nbDays, uint _startAt, address _tokenAddress) {
     endDate = (now * 1 days) + _nbDays;
@@ -109,18 +110,21 @@ contract ICOSale is Ownable {
     if (nbDays <= 720) return 42e6;
   }
 
-  // Allow the owner to get its ETH and unsold tokens
-  function collect() onlyOwner {
+  // Allow the owner to get unsold tokens
+  function collectUnsold() onlyOwner {
     // Is campaign over?
     if (now * 1 days <= endDate) throw;
-
-    // Send ETH
-    if (!owner.send(this.balance)) throw;
 
     // Send unsold tokens
     var balance = token.balanceOf(address(this));
     token.transfer(owner, balance);
 
-    Collected(this.balance, balance);
+    CollectedUnsold(owner, balance);
+  }
+
+  // allow owner to get its ETH, at any time
+  function collectEth() onlyOwner {
+    if (!owner.send(this.balance)) throw;
+    CollectedEth(owner, this.balance);
   }
 }
