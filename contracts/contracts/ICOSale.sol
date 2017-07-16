@@ -98,16 +98,14 @@ contract ICOSale is Ownable {
 
     if (nbDays < 0 || day > endDate) return 0;
 
-    // Total supply is 4.2e9
-
-    // We sell 20% the first two days, it means 10% a day (420e6 tokens)
+    // We sell 2% of 42e9 the first two days, it means 1% a day
     if (nbDays <= 2) return 420e6;
     
-    // First month: 1/30 a day (140e6 tokens)
-    if (nbDays <= 30) return 140e6;
+    // First month: 8% of 42e9, (0.08/42e9)/30 = 112e6
+    if (nbDays <= 30) return 112e6;
 
-    // Next 24 months: 1% a day (42e6)
-    if (nbDays <= 720) return 42e6;
+    // Next 24 months: 1% a month (420e6), 14e6 a day
+    if (nbDays <= 720) return 14e6;
   }
 
   // Allow the owner to get unsold tokens
