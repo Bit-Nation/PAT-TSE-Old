@@ -3,6 +3,7 @@
 Please see the following two repositories for the latest code iterations:
 
 [Token Sale Event](https://github.com/Bit-Nation/Token-Sale-Event-TSE)
+
 [Pangea Arbitration Token](https://github.com/Bit-Nation/Pangea-Arbitration-Token-PAT)
 
 # Building
